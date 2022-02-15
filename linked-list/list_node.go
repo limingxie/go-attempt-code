@@ -16,8 +16,7 @@ func (node *ListNode) Print() {
 	}
 }
 
-/*
-func main() {
+func Mainfunc() {
 	var linkedlist LinkedList
 	linkedlist.Insert(0, 1)
 	linkedlist.Insert(1, 2)
@@ -49,4 +48,3 @@ func main() {
 	fmt.Println("-------- search 4  --------")
 	fmt.Println("index:", linkedlist.Search(4))
 }
-*/

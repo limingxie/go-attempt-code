@@ -1,9 +1,9 @@
 package main
 
 import (
-	"fmt"
+	"go-attempt-code/tree"
 )
 
 func main() {
-	fmt.Println("-------- search 4  --------")
+	tree.MainBTSTree()
 }
