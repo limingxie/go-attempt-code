@@ -2,7 +2,7 @@ package tree
 
 import "fmt"
 
-type BTSTree struct {
+type BSTTree struct {
 	Root *TreeNode
 }
 
@@ -12,7 +12,7 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-func (b *BTSTree) Get(val int) *TreeNode {
+func (b *BSTTree) Get(val int) *TreeNode {
 	currentNode := b.Root
 	for currentNode != nil && currentNode.Value != val {
 		if currentNode.Value == val {
@@ -26,7 +26,7 @@ func (b *BTSTree) Get(val int) *TreeNode {
 	return currentNode
 }
 
-func (b *BTSTree) Insert(val int) {
+func (b *BSTTree) Insert(val int) {
 	if b.Root == nil {
 		b.Root = &TreeNode{Value: val}
 		return
@@ -53,7 +53,7 @@ func (b *BTSTree) Insert(val int) {
 	}
 }
 
-func (b *BTSTree) Delete(val int) bool {
+func (b *BSTTree) Delete(val int) bool {
 	if b.Root == nil {
 		fmt.Println("tree is empty!")
 		return false
@@ -83,9 +83,7 @@ func (b *BTSTree) Delete(val int) bool {
 		} else {
 			parentNode.Right = nil
 		}
-	}
-
-	if currentNode.Left != nil && currentNode.Right == nil {
+	} else if currentNode.Left != nil && currentNode.Right == nil {
 		if b.Root == currentNode {
 			b.Root = currentNode.Left
 		} else if isLeftChild {
@@ -101,9 +99,7 @@ func (b *BTSTree) Delete(val int) bool {
 		} else {
 			parentNode.Right = currentNode.Right
 		}
-	}
-
-	if currentNode.Left != nil && currentNode.Right != nil {
+	} else if currentNode.Left != nil && currentNode.Right != nil {
 		treeNode := currentNode.GetSubTreeForDelete()
 		if b.Root == currentNode {
 			b.Root = treeNode
@@ -143,7 +139,7 @@ func (node *TreeNode) PreOrderTraversalPrint() {
 	if node == nil {
 		return
 	}
-	fmt.Println(node.Value)
+	fmt.Print(node.Value, " ")
 	node.Left.PreOrderTraversalPrint()
 	node.Right.PreOrderTraversalPrint()
 }
@@ -152,20 +148,64 @@ func (node *TreeNode) InOrderTraversalPrint() {
 	if node == nil {
 		return
 	}
-	node.Left.PreOrderTraversalPrint()
-	fmt.Println(node.Value)
-	node.Right.PreOrderTraversalPrint()
+	node.Left.InOrderTraversalPrint()
+	fmt.Print(node.Value, " ")
+	node.Right.InOrderTraversalPrint()
 }
 
 func (node *TreeNode) PostOrderTraversalPrint() {
 	if node == nil {
 		return
 	}
-	node.Left.PreOrderTraversalPrint()
-	node.Right.PreOrderTraversalPrint()
-	fmt.Println(node.Value)
+	node.Left.PostOrderTraversalPrint()
+	node.Right.PostOrderTraversalPrint()
+	fmt.Print(node.Value, " ")
 }
 
-func MainBTSTree() {
-	fmt.Println("aa")
+func MainBSTTree() {
+	btsTree := BSTTree{Root: &TreeNode{Value: 57}}
+	btsTree.Insert(21)
+	btsTree.Insert(88)
+	btsTree.Insert(12)
+	btsTree.Insert(36)
+	btsTree.Insert(69)
+	btsTree.Insert(97)
+	btsTree.Insert(7)
+	btsTree.Insert(14)
+	btsTree.Insert(24)
+	btsTree.Insert(47)
+	btsTree.Insert(61)
+	btsTree.Insert(73)
+	btsTree.Insert(92)
+	btsTree.Insert(99)
+
+	fmt.Println("------------ Print --------------")
+	btsTree.Root.PreOrderTraversalPrint()
+	fmt.Println("")
+	btsTree.Root.PostOrderTraversalPrint()
+	fmt.Println("")
+	btsTree.Root.InOrderTraversalPrint()
+	fmt.Println("")
+
+	fmt.Println("------------ Get 24 --------------")
+	fmt.Printf("%+v", btsTree.Get(24))
+	fmt.Println("")
+
+	fmt.Println("----------- Insert 95 -------------")
+	btsTree.Insert(95)
+	btsTree.Root.PreOrderTraversalPrint()
+	fmt.Println("")
+	btsTree.Root.PostOrderTraversalPrint()
+	fmt.Println("")
+	btsTree.Root.InOrderTraversalPrint()
+	fmt.Println("")
+
+	fmt.Println("----------- Delete 88 -------------")
+	btsTree.Delete(88)
+	btsTree.Root.PreOrderTraversalPrint()
+	fmt.Println("")
+	btsTree.Root.PostOrderTraversalPrint()
+	fmt.Println("")
+	btsTree.Root.InOrderTraversalPrint()
+	fmt.Println("")
 }

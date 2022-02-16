@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	tree.MainBTSTree()
+	tree.MainBSTTree()
 }
