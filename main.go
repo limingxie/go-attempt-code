@@ -1,9 +1,7 @@
 package main
 
-import (
-	"go-attempt-code/tree"
-)
+import "go-attempt-code/queue"
 
 func main() {
-	tree.MainBSTTree()
+	queue.MainPriorityQueue()
 }
