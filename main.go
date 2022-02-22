@@ -1,7 +1,7 @@
 package main
 
-import "go-attempt-code/queue"
+import linkedlist "go-attempt-code/linked-list"
 
 func main() {
-	queue.MainPriorityQueue()
+	linkedlist.MainHashTable()
 }
