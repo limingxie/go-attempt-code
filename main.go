@@ -1,7 +1,7 @@
 package main
 
-import linkedlist "go-attempt-code/linked-list"
+import "go-attempt-code/list"
 
 func main() {
-	linkedlist.MainHashTable()
+	list.MainList1()
 }
