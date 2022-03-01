@@ -1,7 +1,9 @@
 package main
 
-import "go-attempt-code/list"
+import (
+	"go-attempt-code/maps"
+)
 
 func main() {
-	list.MainListSlice()
+	maps.MainMaps()
 }

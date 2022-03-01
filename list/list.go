@@ -6,22 +6,20 @@ import (
 
 func printArrary(arr *[3]int) {
 	arr[0] = 7
-	fmt.Printf("%+v", arr)
-	fmt.Println("")
+	fmt.Printf("%+v\n", arr)
 }
 
 func MainList() {
 	var arr [3]int
 	printArrary(&arr)
-	fmt.Printf("%+v", arr)
-	fmt.Println("")
+	fmt.Printf("%+v\n", arr)
 
 	var arr1 [3]int = [3]int{1, 2, 3}
 	printArrary(&arr1)
 	fmt.Printf("%+v", arr1)
-	fmt.Println("")
 }
 
+//查找 source 中2个值 合为 target 的 index
 func arrayTest(source []int, target int) {
 	for i, s := range source {
 		for j := i + 1; j < len(source); j++ {
