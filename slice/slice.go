@@ -52,66 +52,41 @@ func sliceTest1() {
 
 //slice截取的值，会指向原有的值。
 func sliceTest2() {
-	/*
-		data := []int{0, 1, 2, 3, 4, 5}
+	data := []int{0, 1, 2, 3, 4, 5}
 
-		s := data[2:4]
-		s[0] += 100
-		s[1] += 200
+	s := data[2:4]
+	s[0] += 100
+	s[1] += 200
 
-		fmt.Println(s)
-		fmt.Println(data)
+	fmt.Println(s)
+	fmt.Println(data)
 
-		//需要注意的现象
-		data1 := make([]int, 6, 30)
-		for i := 0; i < 6; i++ {
-			data1[i] = i
-		}
-		s1 := data1[0:2]
-		s1 = append(s1, 10)
+	//需要注意的现象
+	data1 := make([]int, 6, 30)
+	for i := 0; i < 6; i++ {
+		data1[i] = i
+	}
+	s1 := data1[0:2]
+	s1 = append(s1, 10) // 这个操作会影响 s1,data1 值， 因为都看同一个值
 
-		fmt.Printf("%v\n", s1)
-		fmt.Printf("%v\n", data1)
+	fmt.Printf("%v\n", s1)
+	fmt.Printf("%v\n", data1)
 
-		data2 := make([]int, 6, 30)
-		for i := 0; i < 6; i++ {
-			data2[i] = i
-		}
-		s2 := data2[3:]
-		s2[0] = 10
-		// s2 = append(s2, 10)
+	data2 := make([]int, 6, 30)
+	for i := 0; i < 6; i++ {
+		data2[i] = i
+	}
+	s2 := data2[3:] //s2的值是 指向s2[0] 所以s2和data2的指针地址不一样，但是s2[1],和data2[4] 指向的都是同一个内存空间。
+	s2[0] = 10
+	// s2 = append(s2, 10)
 
-		fmt.Printf("%v, %v, %v, %p\n", s2, len(s2), cap(s2), &s2[1])
-		fmt.Printf("%v, %v, %v, %p\n", data2, len(data2), cap(data2), &data2[4])
-	*/
-	a1 := a{1}
-	a2 := &a1
-	a3 := &a2
-	a4 := &a3
-	a5 := &a4
-
-	fmt.Println(fmt.Sprint(&a1))
-	fmt.Printf("%v, %v, %p\n", a1, &a1, &a1)
-	fmt.Printf("%v, %v, %p\n", a2, &a2, &a2)
-	fmt.Printf("%v, %v, %p\n", a3, &a3, &a3)
-	fmt.Printf("%v, %v, %p\n", a4, &a4, &a4)
-	fmt.Printf("%v, %v, %p\n", a5, &a5, &a5)
-
-	// fmt.Println(fmt.Sprint(&a1))
-	// fmt.Printf("%v, %p\n", a1, &a1)
-	// fmt.Printf("%v, %p\n", a2, &a2)
-	// fmt.Printf("%v, %p\n", a3, &a3)
-	// fmt.Printf("%v, %p\n", a4, &a4)
-	// fmt.Printf("%v, %p\n", a5, &a5)
+	fmt.Printf("%v, %v, %v, %p\n", s2, len(s2), cap(s2), &s2[1])
+	fmt.Printf("%v, %v, %v, %p\n", data2, len(data2), cap(data2), &data2[4])
 
 }
 
-type a struct {
-	Id int
-}
-
+//声明slice的时候 len 和 cap 的关系
 func sliceTest3() {
-	//slice 截取
 	s1 := []int{0, 1, 2, 3, 8: 100} // 通过初始化表达式构造，可使用索引号。
 	fmt.Println(s1, len(s1), cap(s1))
 
@@ -120,9 +95,6 @@ func sliceTest3() {
 
 	s3 := make([]int, 6) // 省略 cap，相当于 cap = len。
 	fmt.Println(s3, len(s3), cap(s3))
-
-	fmt.Println("-----------------------------")
-	fmt.Printf("%p, %p, %p", s1, s2, s3)
 }
 
 func sliceTest4() {
@@ -147,30 +119,23 @@ func sliceTest6() {
 		x int
 	}{}
 
-	s := d[:]
+	s := d[:] //指向同一个内存空间
 
 	d[1].x = 10
 	s[2].x = 20
 
-	fmt.Println(d)
-	fmt.Printf("%p, %p\n", &d, &d[0])
+	fmt.Printf("%p, %p, %p, %p, %p\n", &d, &d[0], s, &s, &s[0])
+	fmt.Printf("d: %v,  s: %v\n", d, s)
+
+	s1 := d //新建一个内存空间
+	s1[3].x = 30
+
+	fmt.Printf("%p, %p, %p, %p\n", &d, &d[0], &s1, &s1[0])
+	fmt.Printf("d: %v,  s: %v\n", d, s1)
 }
 
+//slice追加添加元素，append
 func sliceTest7() {
-	d := [5]struct {
-		x int
-	}{}
-
-	// s := d[:]
-
-	// d[1].x = 10
-	// s[2].x = 20
-
-	fmt.Println(d)
-	fmt.Println(d[0])
-	fmt.Printf("%p, %p, %p, %p\n", &d, &d[0], &d[1], &d[2])
-}
-func sliceTest8() {
 	var a = []int{1, 2, 3}
 	fmt.Printf("slice a : %v\n", a)
 	var b = []int{4, 5, 6}
@@ -183,12 +148,30 @@ func sliceTest8() {
 	fmt.Printf("slice e : %v\n", e)
 }
 
-func sliceTest9() {
+//虽然有多余的容量cap但是超出长度，append后
+func sliceTest8() {
 	s1 := make([]int, 0, 5)
 	fmt.Printf("%p\n", &s1)
 
 	s2 := append(s1, 1)
 	fmt.Printf("%p\n", &s2)
+
+	s2[0] = 3
+
+	fmt.Println(s1, s2)
+}
+
+func sliceTest9() {
+	s1 := make([]int, 0, 5)
+	fmt.Printf("%p\n", &s1)
+
+	// s1 = append(s1, 1)
+	// fmt.Printf("%p\n", &s1)
+
+	s2 := append(s1, 2)
+	fmt.Printf("%p\n", &s2)
+
+	s2[0] = 10
 
 	fmt.Println(s1, s2)
 }
@@ -307,7 +290,7 @@ func sliceTest20() {
 }
 
 func MainListSlice() {
-	sliceTest2()
+	sliceTest9()
 
 	fmt.Println("-----------------------------")
 	// fmt.Printf("%p, %p, %p", s1, s2, s3)
