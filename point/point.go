@@ -88,16 +88,41 @@ func PointTest() {
 }
 
 func MainPoint() {
-	a := [5]struct {
-		x int
-	}{}
 
-	b := a[:]
+	s1 := make([]int, 0, 5)
+	fmt.Printf("%p\n", &s1)
 
-	a[1].x = 10
-	b[2].x = 20
+	// s1 = append(s1, 1)
+	// fmt.Printf("%p\n", &s1)
 
-	fmt.Println(a)
-	fmt.Printf("%p, %p\n", &a, &a[0])
+	s2 := append(s1, 2)
+	fmt.Printf("%p\n", s2)
+
+	// s1 := make([]int, 0, 5)
+	// fmt.Printf("s1: %p, %v\n", &s1, s1)
+
+	// // s1 = append(s1, 1)
+	// // fmt.Printf("%p\n", &s1)
+
+	// s2 := append(s1, 2)
+	// fmt.Printf("s2: %p, %v\n", s2, s2)
+
+	// s1 = append(s1, 1)
+	// fmt.Printf("s1: %p, %v\n", &s1, s1)
+	// fmt.Printf("s2: %p, %v\n", s2, s2)
+
+	// s2[0] = 10
+
+	// fmt.Println(s1, s2)
+
+	// s1 = append(s1, 3)
+	// fmt.Printf("%p, %p\n", &s1, &s2)
+
+	// fmt.Println(s1, s2)
+
+	// fmt.Printf("%p, %p\n", &s1[0], &s2[0])
+
+	// s3 := &s1
+	// fmt.Printf("%p\n", &s3)
 
 }

@@ -1,9 +1,7 @@
 package main
 
-import (
-	"go-attempt-code/point"
-)
+import "go-attempt-code/list"
 
 func main() {
-	point.MainPoint()
+	list.MainSparseArray()
 }
