@@ -24,7 +24,7 @@ type Node struct {
 // 		reverseLink.Head.Next = newNode
 // 		node = node.Next
 // 	}
-// 	l.Head = reverseLink.Head
+// 	l.Head = reverseLink.Headgit
 // }
 
 // func (l *LinkList) ReverseLinkedList() {
