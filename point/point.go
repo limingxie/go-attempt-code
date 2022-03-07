@@ -87,7 +87,6 @@ func PointTest() {
 	fmt.Println(*p)                //13
 }
 
-<<<<<<< HEAD
 func uintptrTest() {
 	a := make([]int, 10)
 	for i := 0; i < 10; i++ {
@@ -123,44 +122,5 @@ func pointTest1() {
 
 func MainPoint() {
 	pointTest1()
-=======
-func MainPoint() {
-
-	s1 := make([]int, 0, 5)
-	fmt.Printf("%p\n", &s1)
-
-	// s1 = append(s1, 1)
-	// fmt.Printf("%p\n", &s1)
-
-	s2 := append(s1, 2)
-	fmt.Printf("%p\n", s2)
-
-	// s1 := make([]int, 0, 5)
-	// fmt.Printf("s1: %p, %v\n", &s1, s1)
-
-	// // s1 = append(s1, 1)
-	// // fmt.Printf("%p\n", &s1)
-
-	// s2 := append(s1, 2)
-	// fmt.Printf("s2: %p, %v\n", s2, s2)
-
-	// s1 = append(s1, 1)
-	// fmt.Printf("s1: %p, %v\n", &s1, s1)
-	// fmt.Printf("s2: %p, %v\n", s2, s2)
-
-	// s2[0] = 10
-
-	// fmt.Println(s1, s2)
-
-	// s1 = append(s1, 3)
-	// fmt.Printf("%p, %p\n", &s1, &s2)
-
-	// fmt.Println(s1, s2)
-
-	// fmt.Printf("%p, %p\n", &s1[0], &s2[0])
-
-	// s3 := &s1
-	// fmt.Printf("%p\n", &s3)
->>>>>>> 745cbf6d29b0542c12dac854bc940d9de5cb2778
 
 }
