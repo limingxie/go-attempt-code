@@ -1,9 +1,7 @@
 package main
 
-import (
-	"go-attempt-code/point"
-)
+import linkedlist "go-attempt-code/linked-list"
 
 func main() {
-	point.MainPoint()
+	linkedlist.MainFuncReverseLinkedList()
 }
