@@ -1,7 +1,7 @@
 package main
 
-import "go-attempt-code/list"
+import linkedlist "go-attempt-code/linked-list"
 
 func main() {
-	list.MainSparseArray()
+	linkedlist.MainFuncReverseLinkedList()
 }
