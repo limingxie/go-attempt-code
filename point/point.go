@@ -87,17 +87,40 @@ func PointTest() {
 	fmt.Println(*p)                //13
 }
 
-func MainPoint() {
-	a := [5]struct {
-		x int
-	}{}
-
-	b := a[:]
-
-	a[1].x = 10
-	b[2].x = 20
-
+func uintptrTest() {
+	a := make([]int, 10)
+	for i := 0; i < 10; i++ {
+		a[i] = i
+	}
 	fmt.Println(a)
-	fmt.Printf("%p, %p\n", &a, &a[0])
+	// [0 1 2 3 4 5 6 7 8 9]
+
+	// 取slice的最后的一个元素
+	end := unsafe.Pointer(uintptr(unsafe.Pointer(&a[0])) + 9*unsafe.Sizeof(a[0]))
+	// 等价于unsafe.Pointer(&b[9])
+	fmt.Println(*(*int)(end))
+	// 9
+
+}
+
+type s1 struct {
+	id   int
+	name string
+}
+
+type s2 struct {
+	field1 *[5]byte
+	filed2 int
+}
+
+func pointTest1() {
+	b := s1{name: "123"}
+	var j s2
+	j = *(*s2)(unsafe.Pointer(&b))
+	fmt.Println(j)
+}
+
+func MainPoint() {
+	pointTest1()
 
 }

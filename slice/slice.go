@@ -165,8 +165,8 @@ func sliceTest9() {
 	s1 := make([]int, 0, 5)
 	fmt.Printf("%p\n", &s1)
 
-	// s1 = append(s1, 1)
-	// fmt.Printf("%p\n", &s1)
+	s1 = append(s1, 1)
+	fmt.Printf("%p\n", &s1)
 
 	s2 := append(s1, 2)
 	fmt.Printf("%p\n", &s2)
