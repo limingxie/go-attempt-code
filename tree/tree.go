@@ -26,6 +26,51 @@ func (b *BSTTree) Get(val int) *TreeNode {
 	return currentNode
 }
 
+func (b *BSTTree) GetParent(val int) *TreeNode {
+	if b.Root == nil {
+		return nil
+	}
+	return b.Root.GetParent(val)
+}
+
+func (t *TreeNode) GetParent(val int) *TreeNode {
+	if t == nil {
+		return nil
+	}
+	if (t.Left != nil && t.Left.Value == val) || (t.Right != nil && t.Right.Value == val) {
+		return t
+	}
+	if t.Value > val && t.Left != nil {
+		return t.Left.GetParent(val)
+	} else if t.Value < val && t.Right != nil {
+		return t.Right.GetParent(val)
+	}
+	return nil
+}
+
+func (b *BSTTree) Insert_recursive(val int) {
+	if b.Root == nil {
+		b.Root = &TreeNode{Value: val}
+		return
+	}
+	b.Root = Insert_recursive(b.Root, val)
+}
+
+func Insert_recursive(t *TreeNode, val int) *TreeNode {
+	if t == nil {
+		t = &TreeNode{Value: val}
+		return t
+	}
+
+	if t.Value > val {
+		t.Left = Insert_recursive(t.Left, val)
+	} else if t.Value < val {
+		t.Right = Insert_recursive(t.Right, val)
+	}
+	return t
+
+}
+
 func (b *BSTTree) Insert(val int) {
 	if b.Root == nil {
 		b.Root = &TreeNode{Value: val}
@@ -188,8 +233,8 @@ func MainBSTTree() {
 	fmt.Println("")
 
 	fmt.Println("------------ Get 24 --------------")
-	fmt.Printf("%+v", btsTree.Get(24))
-	fmt.Println("")
+	fmt.Printf("%+v\n", btsTree.Get(24))
+	fmt.Printf("%+v\n", btsTree.GetParent(24))
 
 	fmt.Println("----------- Insert 95 -------------")
 	btsTree.Insert(95)

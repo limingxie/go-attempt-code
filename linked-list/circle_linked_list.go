@@ -19,14 +19,16 @@ func (c *CircleLinkedList) JosephusCircleLinkedList(startNo, count, sum int) {
 		if c.Head == c.Tail {
 			break
 		}
-		for i := 0; i < count; i++ {
+		for i := 0; i < count-1; i++ {
 			c.Head = c.Head.Next
 			c.Tail = c.Tail.Next
 		}
-		c.Head.Next = c.Head.Next.Next
-		fmt.Println(c.Head.Value)
-	}
+		fmt.Printf("出队元素：%d\n", c.Head.Value)
+		c.Head = c.Head.Next
+		c.Tail.Next = c.Head
 
+	}
+	fmt.Printf("最后剩下的元素是：%d", c.Head.Value)
 }
 
 func MainJosephusCircleLinkedList() {
@@ -36,7 +38,8 @@ func MainJosephusCircleLinkedList() {
 	c.Head.Next.Next = &ListNode{Value: 3}
 	c.Head.Next.Next.Next = &ListNode{Value: 4}
 	c.Head.Next.Next.Next.Next = &ListNode{Value: 5}
-	c.Tail = c.Head
+	c.Tail = c.Head.Next.Next.Next.Next
+	c.Tail.Next = c.Head
 	c.Size = 5
 	c.JosephusCircleLinkedList(1, 2, 5)
 }
