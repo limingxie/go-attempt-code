@@ -1,7 +1,7 @@
 package main
 
-import "go-attempt-code/tree"
+import "go-attempt-code/slice"
 
 func main() {
-	tree.MainBSTTree()
+	slice.MainSliceCode()
 }
