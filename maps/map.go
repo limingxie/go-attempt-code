@@ -5,7 +5,6 @@ import (
 	"math/rand"
 	"sort"
 	"time"
-	"unsafe"
 )
 
 func DeclareMap() {
@@ -72,9 +71,10 @@ func OrderPrint() {
 	}
 }
 
-func MapValueSlice() {
+// map的值为slice的时候
+func SliceMapTest() {
 	var sliceMap = make(map[string][]string, 3)
-	fmt.Println(sliceMap, len(sliceMap))
+	fmt.Println(sliceMap, len(sliceMap)) //map[] 0
 	fmt.Println("after init")
 	key := "中国"
 	value, ok := sliceMap[key]
@@ -83,25 +83,9 @@ func MapValueSlice() {
 	}
 	value = append(value, "北京", "上海")
 	sliceMap[key] = value
-	fmt.Println(sliceMap)
-}
-
-func AA() {
-	s := make([]int, 9, 20)
-	var Len = *(*int)(unsafe.Pointer(uintptr(unsafe.Pointer(&s)) + uintptr(8)))
-	fmt.Println(Len, len(s)) // 9 9
-
-	var Cap = *(*int)(unsafe.Pointer(uintptr(unsafe.Pointer(&s)) + uintptr(16)))
-	fmt.Println(Cap, cap(s)) // 20 20
-
-	mp := make(map[string]int)
-	mp["qcrao"] = 100
-	mp["stefno"] = 18
-
-	count := **(**int)(unsafe.Pointer(&mp))
-	fmt.Println(count, len(mp)) // 2 2
+	fmt.Println(sliceMap) //map[中国:[北京 上海]]
 }
 
 func MainMaps() {
-	AA()
+	SliceMapTest()
 }
