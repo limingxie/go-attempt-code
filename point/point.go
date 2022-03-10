@@ -12,13 +12,18 @@ func PointerTypeTest() {
 	// var b *int = &a
 
 	var c *float64 = (*float64)(unsafe.Pointer(&a))
-	*c = *c * 100
+	*c = *c * 3
 
 	fmt.Println(&a)
-	fmt.Println(c)
+	fmt.Println(c) //都是同一个值地址
 
-	fmt.Println(a)
-	fmt.Println(*c)
+	fmt.Println(a)  //int和float 乘法是一样的计算方式所以不出问题
+	fmt.Println(*c) //int的值用float的方式读取，所以出问题。
+
+	*c = *c - 2
+
+	fmt.Println(a)  //int和float 乘法是一样的计算方式所以不出问题
+	fmt.Println(*c) //int的值用float的方式读取，所以出问题。
 }
 
 func PointerTypeTest1() {
