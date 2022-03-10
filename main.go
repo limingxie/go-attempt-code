@@ -1,7 +1,9 @@
 package main
 
-import "go-attempt-code/maps"
+import (
+	"go-attempt-code/point"
+)
 
 func main() {
-	maps.MainMaps()
+	point.MainPoint()
 }

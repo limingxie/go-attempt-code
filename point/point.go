@@ -92,56 +92,41 @@ func PointTest() {
 	fmt.Println(*p)                //13
 }
 
-func uintptrTest() {
-	a := make([]int, 10)
-	for i := 0; i < 10; i++ {
-		a[i] = i
-	}
-	fmt.Println(a)
-	// [0 1 2 3 4 5 6 7 8 9]
+func uintptrPointerTest() {
+	a := [10]int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+	b := unsafe.Pointer(uintptr(unsafe.Pointer(&a[0])) + 9*unsafe.Sizeof(a[0]))
 
-	// 取slice的最后的一个元素
-	end := unsafe.Pointer(uintptr(unsafe.Pointer(&a[0])) + 9*unsafe.Sizeof(a[0]))
-	// 等价于unsafe.Pointer(&b[9])
-	fmt.Println(*(*int)(end))
-	// 9
+	// b是 unsafe.Pointer 所以可转任意指针，转成(*int)指针后在取值
+	fmt.Printf("b: %v, unsafe.Sizeof(a[0]): %d\n", *(*int)(b), unsafe.Sizeof(a[0])) //b: 9, unsafe.Sizeof(a[0]): 8
 
+	c := unsafe.Pointer(uintptr(unsafe.Pointer(&a)) + uintptr(16)) //int是8位长度 所以16 等于 16/8 挪动了2位，所以下面结果是2
+	fmt.Printf("c: %v\n", *(*int)(c))                              //c: 2
+
+	user := user{id: 1, age: 10, name: "user1"}
+	namePointer := unsafe.Pointer(uintptr(unsafe.Pointer(&user)) + unsafe.Offsetof(user.name))
+
+	//这也一样 name是 unsafe.Pointer 所以可转任意指针，转成(*string)指针后在取值
+	fmt.Printf("name: %v\n", *(*string)(namePointer)) //name: user1
 }
 
-type s1 struct {
-	id   int
-	name string
-}
-
-type s2 struct {
-	field1 *[5]byte
-	filed2 int
-}
-
-func pointTest1() {
-	b := s1{name: "123"}
-	var j s2
-	j = *(*s2)(unsafe.Pointer(&b))
-	fmt.Println(j)
-}
-
-func pointTest2() {
+func slicePointTest() {
+	//因slice的结构是 => |ptr|len|cap
 	s := make([]int, 9, 20)
-	var Len = *(*int)(unsafe.Pointer(uintptr(unsafe.Pointer(&s)) + uintptr(8)))
-	fmt.Println(Len, len(s)) // 9 9
+	var Len = *(*int)(unsafe.Pointer(uintptr(unsafe.Pointer(&s)) + uintptr(8))) //挪一个位置是Len
+	fmt.Println(Len, len(s))                                                    // 9 9
 
-	var Cap = *(*int)(unsafe.Pointer(uintptr(unsafe.Pointer(&s)) + uintptr(16)))
-	fmt.Println(Cap, cap(s)) // 20 20
+	var Cap = *(*int)(unsafe.Pointer(uintptr(unsafe.Pointer(&s)) + uintptr(16))) //挪二个位置是CAP
+	fmt.Println(Cap, cap(s))                                                     // 20 20
 
 	mp := make(map[string]int)
 	mp["qcrao"] = 100
 	mp["stefno"] = 18
 
+	//因map结构中第一个是元素个数，所以可以转成len
 	count := **(**int)(unsafe.Pointer(&mp))
 	fmt.Println(count, len(mp)) // 2 2
 }
 
 func MainPoint() {
-	pointTest1()
-
+	slicePointTest()
 }
