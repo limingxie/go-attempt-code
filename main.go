@@ -1,9 +1,9 @@
 package main
 
 import (
-	"go-attempt-code/point"
+	"go-attempt-code/godefer"
 )
 
 func main() {
-	point.MainPoint()
+	godefer.Maingodefer()
 }

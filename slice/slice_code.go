@@ -15,10 +15,11 @@ type slice struct {
 //一旦元素个数超过 1024 个元素，那么增长因子就变成 1.25 ，即每次增加原来容量的四分之一。
 
 func MainSliceCode() {
-	array := []int{10, 20, 30, 40}
-	slice := make([]int, 6)
-	n := copy(slice, array)
-	fmt.Println(n, slice)
+	var a []int = nil
+	var b *slice = nil
+
+	fmt.Printf("%p, %p, %v\n", a, &a, &a)
+	fmt.Printf("%p, %p, %v\n", b, &b, &b)
 }
 
 func SliceTest20() {
