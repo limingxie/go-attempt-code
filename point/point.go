@@ -127,6 +127,59 @@ func slicePointTest() {
 	fmt.Println(count, len(mp)) // 2 2
 }
 
+type AA struct {
+	aid int
+	bid byte
+	cid int
+	did byte
+}
+
+type BB struct {
+	aid int
+	bid int
+	cid byte
+	did byte
+}
+
+func pointTest2() {
+	var a []byte = []byte{11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21}
+	a1 := unsafe.Pointer(uintptr(unsafe.Pointer(&a[0])) + uintptr(1))
+	a2 := unsafe.Pointer(uintptr(unsafe.Pointer(&a[0])) + uintptr(8))
+	fmt.Println(a)
+	fmt.Println(*(*byte)(a1))
+	fmt.Println(*(*byte)(a2))
+
+	var b []int = []int{11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21}
+	fmt.Println(b)
+	b1 := unsafe.Pointer(uintptr(unsafe.Pointer(&b[0])) + uintptr(1))
+	b2 := unsafe.Pointer(uintptr(unsafe.Pointer(&b[0])) + uintptr(8))
+	fmt.Println(*(*int)(b1))
+	fmt.Println(*(*int)(b2))
+
+	aa1 := []AA{{aid: 1, bid: 2, cid: 3, did: 4}, {aid: 11, bid: 12, cid: 13, did: 14}, {aid: 21, bid: 22, cid: 23, did: 24}}
+	bb1 := []AA{{aid: 31, bid: 32, cid: 33, did: 34}, {aid: 41, bid: 42, cid: 43, did: 44}, {aid: 51, bid: 52, cid: 53, did: 54}}
+
+	aaa1 := unsafe.Pointer(uintptr(unsafe.Pointer(&aa1[0])) + uintptr(8))
+	aaa2 := unsafe.Pointer(uintptr(unsafe.Pointer(&aa1[0])) + uintptr(16))
+	aaa3 := unsafe.Pointer(uintptr(unsafe.Pointer(&aa1[0])) + uintptr(24))
+	aaa4 := unsafe.Pointer(uintptr(unsafe.Pointer(&aa1[0])) + uintptr(32))
+	bbb1 := unsafe.Pointer(uintptr(unsafe.Pointer(&bb1[0])) + uintptr(8))
+	bbb2 := unsafe.Pointer(uintptr(unsafe.Pointer(&bb1[0])) + uintptr(16))
+	bbb3 := unsafe.Pointer(uintptr(unsafe.Pointer(&bb1[0])) + uintptr(24))
+	bbb4 := unsafe.Pointer(uintptr(unsafe.Pointer(&bb1[0])) + uintptr(32))
+
+	fmt.Println("--------------------------")
+	fmt.Println(*(*int)(aaa1))
+	fmt.Println(*(*byte)(aaa2))
+	fmt.Println(*(*int)(aaa3))
+	fmt.Println(*(*byte)(aaa4))
+	fmt.Println("--------------------------")
+	fmt.Println(*(*int)(bbb1))
+	fmt.Println(*(*int)(bbb2))
+	fmt.Println(*(*byte)(bbb3))
+	fmt.Println(*(*byte)(bbb4))
+}
+
 func MainPoint() {
 	slicePointTest()
 }
