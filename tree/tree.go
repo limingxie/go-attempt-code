@@ -1,6 +1,8 @@
 package tree
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type BSTTree struct {
 	Root *TreeNode
@@ -198,6 +200,25 @@ func (node *TreeNode) InOrderTraversalPrint() {
 	node.Right.InOrderTraversalPrint()
 }
 
+func (b *BSTTree) InOrderTraversalPrintForQueue() {
+	if b.Root == nil {
+		return
+	}
+	queue := Queue{Capacity: 30}
+	queue.Values = make([]TreeNode, queue.Capacity)
+	queue.Enqueue(*b.Root)
+	for !queue.IsEmpty() {
+		node := queue.Dequeue()
+		fmt.Print(node.Value, " ")
+		if node.Left != nil {
+			queue.Enqueue(*node.Left)
+		}
+		if node.Right != nil {
+			queue.Enqueue(*node.Right)
+		}
+	}
+}
+
 func (node *TreeNode) PostOrderTraversalPrint() {
 	if node == nil {
 		return
@@ -231,6 +252,8 @@ func MainBSTTree() {
 	fmt.Println("")
 	btsTree.Root.InOrderTraversalPrint()
 	fmt.Println("")
+	btsTree.InOrderTraversalPrintForQueue()
+	fmt.Println("")
 
 	fmt.Println("------------ Get 24 --------------")
 	fmt.Printf("%+v\n", btsTree.Get(24))
@@ -253,4 +276,90 @@ func MainBSTTree() {
 	fmt.Println("")
 	btsTree.Root.InOrderTraversalPrint()
 	fmt.Println("")
+}
+
+type Stack struct {
+	Capacity int
+	Top      int
+	Values   []TreeNode
+}
+
+func (s *Stack) Push(val TreeNode) bool {
+	if s.Top >= s.Capacity {
+		fmt.Println("Stack Overflow!")
+		return false
+	}
+	s.Top++
+	s.Values[s.Top] = val
+	return true
+}
+
+func (s *Stack) Pop() TreeNode {
+	if s.Top < 0 {
+		fmt.Println("Stack Underflow!")
+		return TreeNode{}
+	}
+	result := s.Values[s.Top]
+	s.Top--
+	return result
+}
+
+func (s *Stack) Peek() TreeNode {
+	if s.Top < 0 {
+		fmt.Println("Stack Underflow!")
+		return TreeNode{}
+	}
+	result := s.Values[s.Top]
+	return result
+}
+
+func (s *Stack) IsEmpty() bool {
+	return s.Top < 0
+}
+
+type Queue struct {
+	Front    int
+	Rear     int
+	Size     int
+	Capacity int
+	Values   []TreeNode
+}
+
+func (q *Queue) Enqueue(item TreeNode) {
+	if q.IsFull() {
+		fmt.Println("queue is full!")
+		return
+	}
+
+	q.Values[q.Rear] = item
+	q.Rear = (q.Rear + 1) % q.Capacity
+	q.Size++
+}
+
+func (q *Queue) Dequeue() TreeNode {
+	if q.IsEmpty() {
+		fmt.Println("queue is empty!")
+		return TreeNode{}
+	}
+	front := q.Values[q.Front]
+	q.Front = (q.Front + 1) % q.Capacity
+	q.Size--
+	return front
+}
+
+func (q *Queue) Peek() TreeNode {
+	if q.IsEmpty() {
+		fmt.Println("queue is empty!")
+		return TreeNode{}
+	}
+
+	return q.Values[q.Front]
+}
+
+func (q *Queue) IsFull() bool {
+	return q.Size == q.Capacity
+}
+
+func (q *Queue) IsEmpty() bool {
+	return q.Size == 0
 }
