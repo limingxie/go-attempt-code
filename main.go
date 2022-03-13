@@ -1,9 +1,9 @@
 package main
 
 import (
-	"go-attempt-code/godefer"
+	"go-attempt-code/goerror"
 )
 
 func main() {
-	godefer.Maingodefer()
+	goerror.MainGoerror()
 }
