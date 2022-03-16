@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	goroutine.MainChannel()
+	goroutine.MainGoSync()
 }

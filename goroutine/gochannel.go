@@ -1,8 +1,8 @@
 package goroutine
 
 import (
-	"crypto/rand"
 	"fmt"
+	"math/rand"
 	"sync"
 )
 
@@ -138,7 +138,7 @@ func GoChannelTest4() {
 /*-----------------------------------------------------------------------------*/
 
 func MainChannel() {
-	GoChannelTest4()
+	gotickerTest()
 }
 
 /*-----------------------------------------------------------------------------*/
