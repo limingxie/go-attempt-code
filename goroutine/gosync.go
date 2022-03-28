@@ -3,6 +3,7 @@ package goroutine
 import (
 	"fmt"
 	"sync"
+	"sync/atomic"
 	"time"
 )
 
@@ -81,5 +82,47 @@ func GosyncTest3() {
 }
 
 func MainGoSync() {
-	GosyncTest3()
+	GosyncTest4()
 }
+
+var x2 int64
+var l2 sync.Mutex
+var wg2 sync.WaitGroup
+
+// 普通版加函数
+func add2() {
+	// x = x + 1
+	x2++ // 等价于上面的操作
+	wg2.Done()
+}
+
+// 互斥锁版加函数
+func mutexAdd() {
+	l2.Lock()
+	x2++
+	l2.Unlock()
+	wg2.Done()
+}
+
+// 原子操作版加函数
+func atomicAdd() {
+	atomic.AddInt64(&x, 1)
+	wg2.Done()
+}
+
+func GosyncTest4() {
+	start := time.Now()
+	for i := 0; i < 10000; i++ {
+		wg2.Add(1)
+		// go add()       // 普通版add函数 不是并发安全的
+		// go mutexAdd()  // 加锁版add函数 是并发安全的，但是加锁性能开销大
+		go atomicAdd() // 原子操作版add函数 是并发安全，性能优于加锁版
+	}
+	wg2.Wait()
+	end := time.Now()
+	fmt.Println(x)
+	fmt.Println(end.Sub(start))
+}
+
+//atomic包提供了底层的原子级内存操作，对于同步算法的实现很有用。这些函数必须谨慎地保证正确使用。
+//除了某些特殊的底层应用，使用通道或者sync包的函数/类型实现同步更好。
