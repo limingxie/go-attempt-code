@@ -1,9 +1,9 @@
 package main
 
 import (
-	"go-attempt-code/goroutine"
+	"go-attempt-code/gohash"
 )
 
 func main() {
-	goroutine.MainGoSync()
+	gohash.HashMain()
 }
