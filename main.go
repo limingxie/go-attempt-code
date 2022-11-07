@@ -1,9 +1,9 @@
 package main
 
 import (
-	"go-attempt-code/gohash"
+	"go-attempt-code/goaes"
 )
 
 func main() {
-	gohash.HashMain()
+	goaes.MainGoAesOFB()
 }
