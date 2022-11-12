@@ -1,9 +1,9 @@
 package main
 
 import (
-	"go-attempt-code/goaes"
+	"go-attempt-code/gohash"
 )
 
 func main() {
-	goaes.MainGoAesOFB()
+	gohash.BlockChainStart()
 }

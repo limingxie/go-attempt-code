@@ -66,6 +66,7 @@ func Hash256Double(text string, isHex bool) ([]byte, error) {
 
 	bytes := hashInstance.Sum(nil)
 	hashInstance.Reset()
+	hashInstance.Write(bytes)
 	bytes = hashInstance.Sum(nil)
 	return bytes, nil
 }
